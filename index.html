@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kroma Market | Tienda Online</title>
+    <meta name="description" content="Tienda online operada por CORPORACION NUESTRA GENESIS, NIT 901621440-0. Cali, Colombia.">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #f8fafc; color: #334155; }
+        .font-display { font-family: 'Outfit', sans-serif; }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #f8fafc; }
+        ::-webkit-scrollbar-thumb { background: #4f46e5; border-radius: 4px; }
+        
+        .gradient-text {
+            background: linear-gradient(90deg, #3b82f6, #ec4899, #f59e0b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .bg-gradient-brand {
+            background: linear-gradient(135deg, #4f46e5, #ec4899);
+        }
+    </style>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'brand-navy': '#0f172a',
+                        'brand-primary': '#4f46e5',
+                        'brand-light': '#f8fafc',
+                        'brand-accent': '#ec4899'
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- Meta Pixel (Estructura Transparente Meta Ads) -->
+    <script>
+      const PIXEL_ID = ""; 
+      if(PIXEL_ID) {
+          !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window, document,'script','https://connect.facebook.net/en_US/fbevents.js');
+          function initPixel() {
+              if(localStorage.getItem('cookie_consent_ads') === 'true') {
+                  fbq('init', PIXEL_ID);
+                  fbq('track', 'PageView');
+              }
+          }
+          initPixel();
+      }
+    </script>
+</head>
+<body class="antialiased bg-slate-50" x-data="{ showTerms: false, showPrivacy: false, showCookieBanner: !localStorage.getItem('cookie_consent'), mobileMenuOpen: false }">
+
+    <!-- BARRA LEGAL META ADS (Transparencia) -->
+    <div class="bg-brand-navy text-slate-300 text-[11px] sm:text-xs py-2 px-4 text-center tracking-wide font-medium">
+        Kroma Market es operado por CORPORACION NUESTRA GENESIS, NIT 901621440-0, con domicilio en KR 24 F # 3 OESTE - 93, Cali - Valle.
+    </div>
+
+    <!-- HEADER / NAVEGACIÓN LANDING -->
+    <header class="bg-white/95 backdrop-blur-md sticky top-0 z-40 border-b border-slate-200 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20 py-2">
+                <!-- LOGO -->
+                <a href="#" class="flex items-center shrink-0">
+                    <img src="kroma_logo.png" alt="Kroma Market" class="h-14 sm:h-16 w-auto object-contain">
+                </a>
+                
+                <!-- MENU DESKTOP -->
+                <nav class="hidden lg:flex space-x-8 mx-auto">
+                    <a href="#" class="text-slate-600 text-sm font-bold uppercase tracking-wider hover:text-brand-primary transition">Inicio</a>
+                    <a href="#oferta" class="text-slate-600 text-sm font-bold uppercase tracking-wider hover:text-brand-primary transition">Productos</a>
+                    <a href="#nosotros" class="text-slate-600 text-sm font-bold uppercase tracking-wider hover:text-brand-primary transition">Nosotros</a>
+                    <a href="#contacto" class="text-slate-600 text-sm font-bold uppercase tracking-wider hover:text-brand-primary transition">Contacto</a>
+                </nav>
+
+                <!-- CTA & MENU MOVIL TOGGLE -->
+                <div class="flex items-center gap-4 shrink-0">
+                    <a href="#contacto" class="hidden sm:inline-flex items-center justify-center px-6 py-2.5 text-sm font-bold rounded-lg text-white bg-gradient-brand hover:opacity-90 transition uppercase shadow-lg shadow-indigo-200">
+                        Hacer Pedido
+                    </a>
+                    
+                    <!-- Botón Hamburguesa -->
+                    <button @click="mobileMenuOpen = !mobileMenuOpen" class="lg:hidden text-brand-navy p-2 focus:outline-none">
+                        <svg x-show="!mobileMenuOpen" xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                        <svg x-show="mobileMenuOpen" style="display: none;" xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- PANEL MENU MOVIL -->
+        <div x-show="mobileMenuOpen" style="display: none;" class="lg:hidden bg-white border-t border-slate-100 px-4 py-4 space-y-3 absolute w-full z-40 shadow-xl">
+            <a @click="mobileMenuOpen = false" href="#" class="block text-brand-navy font-bold uppercase py-2 border-b border-slate-50">Inicio</a>
+            <a @click="mobileMenuOpen = false" href="#oferta" class="block text-brand-navy font-bold uppercase py-2 border-b border-slate-50">Productos</a>
+            <a @click="mobileMenuOpen = false" href="#nosotros" class="block text-brand-navy font-bold uppercase py-2 border-b border-slate-50">Nosotros</a>
+            <a @click="mobileMenuOpen = false" href="#contacto" class="block text-brand-navy font-bold uppercase py-2 border-b border-slate-50">Contacto</a>
+            <a @click="mobileMenuOpen = false" href="#contacto" class="block text-center mt-4 px-4 py-3 bg-gradient-brand text-white font-bold rounded-lg uppercase shadow-md">Hacer Pedido</a>
+        </div>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section class="relative pt-12 pb-20 lg:pt-24 lg:pb-32 overflow-hidden bg-white">
+        <div class="absolute inset-0 bg-slate-50/50"></div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                
+                <!-- Textos Hero -->
+                <div class="text-center lg:text-left">
+                    <div class="inline-block bg-indigo-50 text-brand-primary text-xs font-bold px-4 py-1.5 rounded-full uppercase tracking-widest mb-6 border border-indigo-100">Tendencias 2026</div>
+                    <h1 class="text-5xl sm:text-6xl lg:text-7xl font-display font-bold text-brand-navy mb-6 leading-tight">
+                        Todo lo que buscas,<br>
+                        <span class="gradient-text">en un solo lugar.</span>
+                    </h1>
+                    <p class="text-lg text-slate-600 mb-8 max-w-lg mx-auto lg:mx-0 font-medium">
+                        Descubre una selección premium de tecnología, accesorios y estilo de vida con Kroma Market. Compras seguras y envíos rápidos a todo el país.
+                    </p>
+                    
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+                        <a href="#oferta" class="px-8 py-4 text-base font-bold rounded-lg text-white bg-gradient-brand hover:opacity-90 transition uppercase text-center w-full sm:w-auto shadow-lg shadow-indigo-200">
+                            Explorar Tienda
+                        </a>
+                        <a href="#contacto" class="px-8 py-4 text-base font-bold rounded-lg text-brand-navy border-2 border-slate-200 hover:border-brand-primary hover:text-brand-primary transition uppercase text-center w-full sm:w-auto bg-white shadow-sm">
+                            Atención al Cliente
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Imagen Hero -->
+                <div class="relative w-full max-w-md mx-auto lg:max-w-none">
+                    <div class="aspect-square lg:aspect-[4/3] bg-white rounded-3xl overflow-hidden shadow-2xl relative border border-slate-100 p-2">
+                        <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=800&q=80" alt="Tecnología y Estilo Kroma Market" class="w-full h-full object-cover rounded-2xl">
+                    </div>
+                    <!-- Decoración circular -->
+                    <div class="absolute -z-10 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[110%] h-[110%] bg-gradient-to-tr from-indigo-100 to-pink-100 blur-[60px] rounded-full opacity-70"></div>
+                </div>
+                
+            </div>
+        </div>
+    </section>
+
+    <!-- TRUST BAR -->
+    <section class="border-y border-slate-200 bg-white">
+        <div class="max-w-7xl mx-auto px-4 py-10 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center text-sm font-bold uppercase tracking-wider text-brand-navy">
+                <div class="flex flex-col items-center gap-4">
+                    <div class="w-14 h-14 rounded-2xl bg-indigo-50 flex items-center justify-center text-brand-primary">
+                        <svg class="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4" /></svg>
+                    </div>
+                    <span>Envíos<br>Nacionales</span>
+                </div>
+                <div class="flex flex-col items-center gap-4">
+                    <div class="w-14 h-14 rounded-2xl bg-pink-50 flex items-center justify-center text-brand-accent">
+                        <svg class="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z" /></svg>
+                    </div>
+                    <span>Pago Seguro<br><span class="text-[10px] text-slate-400 normal-case">(Contraentrega sujeto a zona)</span></span>
+                </div>
+                <div class="flex flex-col items-center gap-4">
+                    <div class="w-14 h-14 rounded-2xl bg-amber-50 flex items-center justify-center text-amber-500">
+                        <svg class="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z" /></svg>
+                    </div>
+                    <span>Garantía<br>de Calidad</span>
+                </div>
+                <div class="flex flex-col items-center gap-4">
+                    <div class="w-14 h-14 rounded-2xl bg-emerald-50 flex items-center justify-center text-emerald-500">
+                        <svg class="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" /></svg>
+                    </div>
+                    <span>Compra<br>Protegida</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PRODUCTOS DESTACADOS (OFERTA) -->
+    <section id="oferta" class="py-24 bg-slate-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl sm:text-5xl font-display font-bold text-brand-navy mb-4">Lo Más Top</h2>
+                <p class="text-slate-500 max-w-2xl mx-auto font-medium">Descubre los productos más vendidos y mejor valorados por nuestra comunidad.</p>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                
+                <!-- PRODUCTO 1 -->
+                <div class="bg-white rounded-2xl overflow-hidden border border-slate-200 shadow-sm hover:shadow-xl hover:-translate-y-1 transition duration-300 group flex flex-col">
+                    <div class="aspect-square overflow-hidden relative bg-slate-100 p-6">
+                        <img src="https://images.unsplash.com/photo-1546868871-7041f2a55e12?auto=format&fit=crop&w=600&q=80" alt="Smartwatch PRO" class="w-full h-full object-contain group-hover:scale-105 transition duration-500 drop-shadow-xl">
+                    </div>
+                    <div class="p-6 flex flex-col flex-grow">
+                        <h3 class="text-xl font-bold text-brand-navy mb-1">Smartwatch PRO Series</h3>
+                        <div class="text-2xl font-display font-bold text-brand-primary mb-4">$ 185.000 COP</div>
+                        <div class="flex gap-2 mb-6 text-xs font-bold text-slate-500">
+                            <span class="bg-slate-100 px-3 py-1 rounded-full">TECH</span>
+                            <span class="bg-slate-100 px-3 py-1 rounded-full">COLOR: NEGRO</span>
+                        </div>
+                        <a href="#contacto" class="mt-auto block w-full bg-brand-navy text-white text-center font-bold py-3.5 rounded-xl hover:bg-brand-primary transition uppercase text-sm shadow-md">Consultar Disponibilidad</a>
+                    </div>
+                </div>
+
+                <!-- PRODUCTO 2 -->
+                <div class="bg-white rounded-2xl overflow-hidden border border-slate-200 shadow-sm hover:shadow-xl hover:-translate-y-1 transition duration-300 group flex flex-col">
+                    <div class="aspect-square overflow-hidden relative bg-slate-100 p-6">
+                        <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=600&q=80" alt="Smartwatch Minimal" class="w-full h-full object-contain group-hover:scale-105 transition duration-500 drop-shadow-xl">
+                    </div>
+                    <div class="p-6 flex flex-col flex-grow">
+                        <h3 class="text-xl font-bold text-brand-navy mb-1">Smartwatch Classic</h3>
+                        <div class="text-2xl font-display font-bold text-brand-primary mb-4">$ 140.000 COP</div>
+                        <div class="flex gap-2 mb-6 text-xs font-bold text-slate-500">
+                            <span class="bg-slate-100 px-3 py-1 rounded-full">TECH</span>
+                            <span class="bg-slate-100 px-3 py-1 rounded-full">COLOR: BLANCO</span>
+                        </div>
+                        <a href="#contacto" class="mt-auto block w-full bg-brand-navy text-white text-center font-bold py-3.5 rounded-xl hover:bg-brand-primary transition uppercase text-sm shadow-md">Consultar Disponibilidad</a>
+                    </div>
+                </div>
+
+                <!-- PRODUCTO 3 -->
+                <div class="bg-white rounded-2xl overflow-hidden border border-slate-200 shadow-sm hover:shadow-xl hover:-translate-y-1 transition duration-300 group flex flex-col">
+                    <div class="aspect-square overflow-hidden relative bg-slate-100 p-6">
+                        <img src="https://images.unsplash.com/photo-1583394838336-acd977736f90?auto=format&fit=crop&w=600&q=80" alt="Audífonos Wireless" class="w-full h-full object-contain group-hover:scale-105 transition duration-500 drop-shadow-xl">
+                    </div>
+                    <div class="p-6 flex flex-col flex-grow">
+                        <h3 class="text-xl font-bold text-brand-navy mb-1">Audífonos Wireless Pro</h3>
+                        <div class="text-2xl font-display font-bold text-brand-primary mb-4">$ 110.000 COP</div>
+                        <div class="flex gap-2 mb-6 text-xs font-bold text-slate-500">
+                            <span class="bg-slate-100 px-3 py-1 rounded-full">AUDIO</span>
+                            <span class="bg-slate-100 px-3 py-1 rounded-full">BLUETOOTH</span>
+                        </div>
+                        <a href="#contacto" class="mt-auto block w-full bg-brand-navy text-white text-center font-bold py-3.5 rounded-xl hover:bg-brand-primary transition uppercase text-sm shadow-md">Consultar Disponibilidad</a>
+                    </div>
+                </div>
+                
+                <!-- PRODUCTO 4 -->
+                <div class="bg-white rounded-2xl overflow-hidden border border-slate-200 shadow-sm hover:shadow-xl hover:-translate-y-1 transition duration-300 group flex flex-col">
+                    <div class="aspect-square overflow-hidden relative bg-slate-100 p-6">
+                        <img src="https://images.unsplash.com/photo-1600185365483-26d7a4cc7519?auto=format&fit=crop&w=600&q=80" alt="Sneakers Urban" class="w-full h-full object-contain group-hover:scale-105 transition duration-500 drop-shadow-xl">
+                    </div>
+                    <div class="p-6 flex flex-col flex-grow">
+                        <h3 class="text-xl font-bold text-brand-navy mb-1">Sneakers Urban X</h3>
+                        <div class="text-2xl font-display font-bold text-brand-primary mb-4">$ 195.000 COP</div>
+                        <div class="flex gap-2 mb-6 text-xs font-bold text-slate-500">
+                            <span class="bg-slate-100 px-3 py-1 rounded-full">CALZADO</span>
+                            <span class="bg-slate-100 px-3 py-1 rounded-full">TALLAS: 38-42</span>
+                        </div>
+                        <a href="#contacto" class="mt-auto block w-full bg-brand-navy text-white text-center font-bold py-3.5 rounded-xl hover:bg-brand-primary transition uppercase text-sm shadow-md">Consultar Disponibilidad</a>
+                    </div>
+                </div>
+
+                <!-- PRODUCTO 5 -->
+                <div class="bg-white rounded-2xl overflow-hidden border border-slate-200 shadow-sm hover:shadow-xl hover:-translate-y-1 transition duration-300 group flex flex-col">
+                    <div class="aspect-square overflow-hidden relative bg-slate-100 p-6">
+                        <img src="https://images.unsplash.com/photo-1549298916-b41d501d3772?auto=format&fit=crop&w=600&q=80" alt="Zapatillas Running" class="w-full h-full object-contain group-hover:scale-105 transition duration-500 drop-shadow-xl">
+                    </div>
+                    <div class="p-6 flex flex-col flex-grow">
+                        <h3 class="text-xl font-bold text-brand-navy mb-1">Zapatillas Running</h3>
+                        <div class="text-2xl font-display font-bold text-brand-primary mb-4">$ 160.000 COP</div>
+                        <div class="flex gap-2 mb-6 text-xs font-bold text-slate-500">
+                            <span class="bg-slate-100 px-3 py-1 rounded-full">DEPORTE</span>
+                            <span class="bg-slate-100 px-3 py-1 rounded-full">TALLAS: 39-43</span>
+                        </div>
+                        <a href="#contacto" class="mt-auto block w-full bg-brand-navy text-white text-center font-bold py-3.5 rounded-xl hover:bg-brand-primary transition uppercase text-sm shadow-md">Consultar Disponibilidad</a>
+                    </div>
+                </div>
+
+                <!-- PRODUCTO 6 -->
+                <div class="bg-white rounded-2xl overflow-hidden border border-slate-200 shadow-sm hover:shadow-xl hover:-translate-y-1 transition duration-300 group flex flex-col">
+                    <div class="aspect-square overflow-hidden relative bg-slate-100 p-6">
+                        <img src="https://images.unsplash.com/photo-1527383246645-885f00e95738?auto=format&fit=crop&w=600&q=80" alt="Bolsa Deporte" class="w-full h-full object-contain group-hover:scale-105 transition duration-500 drop-shadow-xl">
+                    </div>
+                    <div class="p-6 flex flex-col flex-grow">
+                        <h3 class="text-xl font-bold text-brand-navy mb-1">Bolso Gym Active</h3>
+                        <div class="text-2xl font-display font-bold text-brand-primary mb-4">$ 85.000 COP</div>
+                        <div class="flex gap-2 mb-6 text-xs font-bold text-slate-500">
+                            <span class="bg-slate-100 px-3 py-1 rounded-full">ACCESORIOS</span>
+                            <span class="bg-slate-100 px-3 py-1 rounded-full">COLOR: VERDE</span>
+                        </div>
+                        <a href="#contacto" class="mt-auto block w-full bg-brand-navy text-white text-center font-bold py-3.5 rounded-xl hover:bg-brand-primary transition uppercase text-sm shadow-md">Consultar Disponibilidad</a>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </section>
+
+    <!-- NOSOTROS Y FAQ -->
+    <section id="nosotros" class="py-24 bg-white border-y border-slate-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
+            
+            <!-- Nosotros -->
+            <div>
+                <h2 class="text-3xl sm:text-4xl font-display font-bold text-brand-navy mb-6">Conoce Kroma Market</h2>
+                <div class="text-slate-600 space-y-4 mb-8 text-lg">
+                    <p>Somos una tienda en línea enfocada en traer los productos más útiles, innovadores y con el mejor estilo. Entendemos el ritmo de la vida moderna y por eso ofrecemos un catálogo versátil con envíos a todo el país.</p>
+                </div>
+                
+                <div class="bg-slate-50 p-8 rounded-2xl border border-slate-200 shadow-sm">
+                    <h3 class="text-brand-primary font-bold uppercase text-sm mb-5 tracking-wider">Información Corporativa</h3>
+                    <ul class="space-y-4 text-sm text-slate-700 font-medium">
+                        <li><strong class="text-brand-navy">Razón social:</strong> CORPORACION NUESTRA GENESIS</li>
+                        <li><strong class="text-brand-navy">NIT:</strong> 901621440-0</li>
+                        <li><strong class="text-brand-navy">Ubicación:</strong> KR 24 F # 3 OESTE - 93, Cali - Valle</li>
+                        <li><strong class="text-brand-navy">Correo:</strong> ventas@kromamarket.site</li>
+                        <li><strong class="text-brand-navy">Teléfono:</strong> 3044171268</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- FAQ -->
+            <div x-data="{ active: null }" class="space-y-4">
+                <h2 class="text-3xl sm:text-4xl font-display font-bold text-brand-navy mb-6">Preguntas Frecuentes</h2>
+                
+                <div class="bg-white border border-slate-200 rounded-2xl shadow-sm hover:border-brand-primary transition">
+                    <button @click="active = active === 1 ? null : 1" class="flex justify-between items-center w-full px-6 py-5 text-left font-bold text-slate-800 focus:outline-none">
+                        ¿Quién opera Kroma Market?
+                        <svg class="h-6 w-6 text-brand-primary transform transition-transform" :class="{'rotate-180': active === 1}" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
+                    </button>
+                    <div class="px-6 py-5 text-slate-600 border-t border-slate-100 text-sm" x-show="active === 1" style="display: none;">
+                        Es operado por CORPORACION NUESTRA GENESIS, NIT 901621440-0.
+                    </div>
+                </div>
+                
+                <div class="bg-white border border-slate-200 rounded-2xl shadow-sm hover:border-brand-primary transition">
+                    <button @click="active = active === 2 ? null : 2" class="flex justify-between items-center w-full px-6 py-5 text-left font-bold text-slate-800 focus:outline-none">
+                        ¿Dónde están ubicados?
+                        <svg class="h-6 w-6 text-brand-primary transform transition-transform" :class="{'rotate-180': active === 2}" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
+                    </button>
+                    <div class="px-6 py-5 text-slate-600 border-t border-slate-100 text-sm" x-show="active === 2" style="display: none;">
+                        KR 24 F # 3 OESTE - 93, Cali - Valle.
+                    </div>
+                </div>
+                
+                <div class="bg-white border border-slate-200 rounded-2xl shadow-sm hover:border-brand-primary transition">
+                    <button @click="active = active === 3 ? null : 3" class="flex justify-between items-center w-full px-6 py-5 text-left font-bold text-slate-800 focus:outline-none">
+                        ¿Hacen envíos?
+                        <svg class="h-6 w-6 text-brand-primary transform transition-transform" :class="{'rotate-180': active === 3}" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
+                    </button>
+                    <div class="px-6 py-5 text-slate-600 border-t border-slate-100 text-sm" x-show="active === 3" style="display: none;">
+                        Sí. Las condiciones de envío disponibles se informan durante el proceso de compra al momento de contactarnos.
+                    </div>
+                </div>
+
+                <div class="bg-white border border-slate-200 rounded-2xl shadow-sm hover:border-brand-primary transition">
+                    <button @click="active = active === 4 ? null : 4" class="flex justify-between items-center w-full px-6 py-5 text-left font-bold text-slate-800 focus:outline-none">
+                        ¿Cómo funcionan los cambios?
+                        <svg class="h-6 w-6 text-brand-primary transform transition-transform" :class="{'rotate-180': active === 4}" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
+                    </button>
+                    <div class="px-6 py-5 text-slate-600 border-t border-slate-100 text-sm" x-show="active === 4" style="display: none;">
+                        Comunícate a nuestras líneas de atención o consulta nuestros términos y condiciones para revisar tu caso y procesar tu garantía.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACTO -->
+    <section id="contacto" class="py-24 relative bg-slate-50">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="text-4xl sm:text-5xl font-display font-bold text-brand-navy mb-4">Inicia tu pedido</h2>
+            <p class="text-slate-600 mb-12 text-lg">Completa el formulario y nos comunicaremos contigo lo más pronto posible para confirmar tu compra y coordinar la entrega.</p>
+            
+            <form action="mailto:ventas@kromamarket.site" method="POST" enctype="text/plain" class="bg-white p-8 sm:p-12 rounded-3xl border border-slate-200 shadow-xl shadow-slate-200/50 text-left max-w-2xl mx-auto">
+                <div class="mb-6">
+                    <label class="block text-sm font-bold text-brand-navy mb-2 uppercase tracking-wide">Nombre completo</label>
+                    <input type="text" name="nombre" required class="w-full bg-slate-50 border border-slate-200 text-slate-900 rounded-xl p-4 focus:outline-none focus:border-brand-primary focus:ring-1 focus:ring-brand-primary transition font-medium">
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-6">
+                    <div>
+                        <label class="block text-sm font-bold text-brand-navy mb-2 uppercase tracking-wide">Correo electrónico</label>
+                        <input type="email" name="correo" required class="w-full bg-slate-50 border border-slate-200 text-slate-900 rounded-xl p-4 focus:outline-none focus:border-brand-primary focus:ring-1 focus:ring-brand-primary transition font-medium">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-bold text-brand-navy mb-2 uppercase tracking-wide">Teléfono</label>
+                        <input type="tel" name="telefono" required class="w-full bg-slate-50 border border-slate-200 text-slate-900 rounded-xl p-4 focus:outline-none focus:border-brand-primary focus:ring-1 focus:ring-brand-primary transition font-medium">
+                    </div>
+                </div>
+                <div class="mb-8">
+                    <label class="block text-sm font-bold text-brand-navy mb-2 uppercase tracking-wide">Producto de interés / Mensaje</label>
+                    <textarea name="mensaje" rows="4" required class="w-full bg-slate-50 border border-slate-200 text-slate-900 rounded-xl p-4 focus:outline-none focus:border-brand-primary focus:ring-1 focus:ring-brand-primary transition resize-none font-medium"></textarea>
+                </div>
+                <button type="submit" class="w-full bg-gradient-brand text-white font-bold py-4 rounded-xl hover:opacity-90 transition uppercase text-lg shadow-lg shadow-indigo-200">
+                    ENVIAR SOLICITUD
+                </button>
+            </form>
+        </div>
+    </section>
+
+    <!-- FOOTER LEGAL -->
+    <footer class="bg-brand-navy py-16 border-t border-brand-navy text-center text-sm text-slate-400">
+        <div class="max-w-7xl mx-auto px-4">
+            <p class="font-display font-bold text-white text-3xl mb-4">Kroma Market</p>
+            <p class="mb-8 text-slate-300 leading-relaxed max-w-lg mx-auto">Operado por CORPORACION NUESTRA GENESIS. NIT 901621440-0.<br>KR 24 F # 3 OESTE - 93, Cali - Valle.<br>ventas@kromamarket.site | 3044171268</p>
+            
+            <div class="flex flex-wrap justify-center gap-6 mb-10">
+                <button @click.prevent="showTerms = true" class="hover:text-white transition font-medium underline underline-offset-4">Términos y Condiciones</button>
+                <button @click.prevent="showPrivacy = true" class="hover:text-white transition font-medium underline underline-offset-4">Política de Privacidad</button>
+            </div>
+            
+            <p class="text-xs">&copy; 2026 Kroma Market. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <!-- COOKIE BANNER -->
+    <div x-show="showCookieBanner" style="display: none;" class="fixed bottom-0 inset-x-0 p-4 z-[60] bg-white border-t border-slate-200 shadow-[0_-10px_40px_rgba(0,0,0,0.1)]">
+        <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
+            <p class="text-sm text-slate-600 font-medium">
+                Utilizamos cookies propias y de terceros para analítica web y publicidad.
+                <button @click="showPrivacy = true" class="underline text-brand-primary hover:text-brand-navy transition">Ver política de privacidad</button>.
+            </p>
+            <div class="flex gap-3 shrink-0">
+                <button @click="localStorage.setItem('cookie_consent', 'true'); localStorage.setItem('cookie_consent_ads', 'true'); showCookieBanner = false; if(typeof initPixel === 'function') initPixel();" class="px-6 py-2.5 bg-brand-navy text-white text-xs font-bold rounded-lg uppercase shadow-sm hover:bg-brand-primary transition">Aceptar</button>
+                <button @click="localStorage.setItem('cookie_consent', 'true'); localStorage.setItem('cookie_consent_ads', 'false'); showCookieBanner = false;" class="px-6 py-2.5 bg-slate-100 text-slate-600 text-xs font-bold rounded-lg uppercase hover:bg-slate-200 transition">Rechazar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL: TÉRMINOS Y CONDICIONES -->
+    <div x-show="showTerms" style="display: none;" class="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6" x-transition.opacity>
+        <!-- Backdrop -->
+        <div class="absolute inset-0 bg-brand-navy/60 backdrop-blur-sm" @click="showTerms = false"></div>
+        <!-- Modal Content -->
+        <div class="relative w-full max-w-4xl max-h-[85vh] bg-white rounded-3xl shadow-2xl flex flex-col overflow-hidden">
+            <div class="p-6 border-b border-slate-100 flex justify-between items-center bg-white z-10">
+                <h2 class="text-2xl font-display font-bold text-brand-navy">Términos y Condiciones</h2>
+                <button @click="showTerms = false" class="text-slate-400 hover:text-brand-primary transition">
+                    <svg class="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
+                </button>
+            </div>
+            <div class="p-8 overflow-y-auto text-slate-600 text-sm space-y-5 font-medium">
+                <div class="bg-slate-50 p-5 rounded-xl border border-slate-100 text-brand-navy">
+                    <p><strong>CORPORACION NUESTRA GENESIS</strong><br>NIT: 901621440-0<br>KR 24 F # 3 OESTE - 93, Cali - Valle<br>Correo: ventas@kromamarket.site | Teléfono: 3044171268</p>
+                </div>
+                <h3 class="text-brand-navy font-bold text-base mt-6">1. Identificación del negocio</h3>
+                <p>El presente sitio web es operado por CORPORACION NUESTRA GENESIS (en adelante, "la Empresa"), con NIT 901621440-0, y domicilio en KR 24 F # 3 OESTE - 93, Cali - Valle. La marca comercial asociada es "Kroma Market".</p>
+                <h3 class="text-brand-navy font-bold text-base mt-4">2. Uso del sitio</h3>
+                <p>Al acceder o utilizar este Sitio Web, el usuario acepta expresamente estos Términos y Condiciones. El usuario se compromete a realizar un uso lícito y adecuado de la plataforma.</p>
+                <h3 class="text-brand-navy font-bold text-base mt-4">3. Productos</h3>
+                <p>Se exhiben productos de tecnología, lifestyle y misceláneos. Las imágenes son de referencia. Hacemos lo posible por mostrar los productos con exactitud, pero pueden existir ligeras variaciones según la pantalla del usuario.</p>
+                <h3 class="text-brand-navy font-bold text-base mt-4">4. Precios</h3>
+                <p>Los precios están en Pesos Colombianos (COP) e incluyen impuestos aplicables. Los costos de envío se calcularán por separado al momento de la compra.</p>
+                <h3 class="text-brand-navy font-bold text-base mt-4">5. Disponibilidad y Pedidos</h3>
+                <p>Todo pedido está sujeto a la disponibilidad del inventario. Para formalizar un pedido, el usuario deberá seguir el proceso de contacto/compra establecido.</p>
+                <h3 class="text-brand-navy font-bold text-base mt-4">6. Envíos y Entregas</h3>
+                <p>Los despachos se realizan mediante transportadoras nacionales. Las condiciones, cobertura y costos serán detallados durante el proceso de compra.</p>
+                <h3 class="text-brand-navy font-bold text-base mt-4">7. Cambios, Devoluciones y Retracto</h3>
+                <p>El usuario puede solicitar cambios de productos comunicándose a nuestras líneas de atención. En cumplimiento del Estatuto del Consumidor en Colombia, el usuario tiene derecho a retractarse de la compra en los plazos de ley (5 días hábiles), asumiendo los costos de envío de retorno.</p>
+                <h3 class="text-brand-navy font-bold text-base mt-4">8. Garantías y Propiedad Intelectual</h3>
+                <p>Otorgamos garantía legal por defectos de fábrica. Los contenidos del sitio son propiedad exclusiva de la Empresa y están protegidos por leyes de derechos de autor.</p>
+                <h3 class="text-brand-navy font-bold text-base mt-4">9. Protección de datos y Responsabilidad</h3>
+                <p>El tratamiento de los datos personales suministrados por el usuario se rige por nuestra Política de privacidad. La Empresa no será responsable por interrupciones técnicas del sitio web o eventos de fuerza mayor.</p>
+            </div>
+            <div class="p-6 border-t border-slate-100 text-right bg-white">
+                <button @click="showTerms = false" class="px-8 py-3.5 bg-brand-navy text-white font-bold uppercase rounded-xl text-sm hover:bg-brand-primary transition shadow-md">Cerrar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL: POLÍTICA DE PRIVACIDAD -->
+    <div x-show="showPrivacy" style="display: none;" class="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6" x-transition.opacity>
+        <!-- Backdrop -->
+        <div class="absolute inset-0 bg-brand-navy/60 backdrop-blur-sm" @click="showPrivacy = false"></div>
+        <!-- Modal Content -->
+        <div class="relative w-full max-w-4xl max-h-[85vh] bg-white rounded-3xl shadow-2xl flex flex-col overflow-hidden">
+            <div class="p-6 border-b border-slate-100 flex justify-between items-center bg-white z-10">
+                <h2 class="text-2xl font-display font-bold text-brand-navy">Política de Privacidad</h2>
+                <button @click="showPrivacy = false" class="text-slate-400 hover:text-brand-primary transition">
+                    <svg class="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
+                </button>
+            </div>
+            <div class="p-8 overflow-y-auto text-slate-600 text-sm space-y-5 font-medium">
+                <div class="bg-slate-50 p-5 rounded-xl border border-slate-100 text-brand-navy">
+                    <p><strong>Responsable:</strong> CORPORACION NUESTRA GENESIS<br>NIT: 901621440-0<br>KR 24 F # 3 OESTE - 93, Cali - Valle<br>Correo: ventas@kromamarket.site | Teléfono: 3044171268</p>
+                </div>
+                <h3 class="text-brand-navy font-bold text-base mt-6">1. Responsable del tratamiento</h3>
+                <p>La protección de sus datos está a cargo de CORPORACION NUESTRA GENESIS, entidad operadora de la marca Kroma Market.</p>
+                <h3 class="text-brand-navy font-bold text-base mt-4">2. Datos recopilados</h3>
+                <ul class="list-disc pl-5 space-y-2 text-slate-600">
+                    <li><strong>Formularios:</strong> Nombres, correo electrónico, teléfono, ciudad y mensaje.</li>
+                    <li><strong>Pedidos:</strong> Información de facturación, dirección de envío y datos de contacto.</li>
+                    <li><strong>Cookies y Analítica:</strong> Datos de navegación e interacciones en el sitio web.</li>
+                </ul>
+                <h3 class="text-brand-navy font-bold text-base mt-4">3. Publicidad y Meta Pixel</h3>
+                <p>En caso de instalar herramientas de seguimiento como Meta Pixel, se recopilará información sobre acciones en la página. Esto se hace con fines de medición y publicidad. Las cookies publicitarias opcionales solo se activarán previo consentimiento del usuario a través de nuestro banner de cookies.</p>
+                <h3 class="text-brand-navy font-bold text-base mt-4">4. Finalidades</h3>
+                <p>Los datos son usados para: procesar pedidos, despachar productos, atención al cliente, comunicaciones comerciales (previo consentimiento), facturación y análisis estadístico.</p>
+                <h3 class="text-brand-navy font-bold text-base mt-4">5. Terceros y Seguridad</h3>
+                <p>Podemos compartir datos necesarios con empresas transportadoras y pasarelas de pago. No vendemos datos a terceros. Implementamos protocolos seguros (HTTPS) y prácticas organizacionales para proteger la información de pérdida o acceso no autorizado.</p>
+                <h3 class="text-brand-navy font-bold text-base mt-4">6. Derechos del usuario</h3>
+                <p>Como titular, tiene derecho a conocer, actualizar, rectificar y eliminar sus datos. Puede enviar sus solicitudes al correo ventas@kromamarket.site.</p>
+            </div>
+            <div class="p-6 border-t border-slate-100 text-right bg-white">
+                <button @click="showPrivacy = false" class="px-8 py-3.5 bg-brand-navy text-white font-bold uppercase rounded-xl text-sm hover:bg-brand-primary transition shadow-md">Cerrar</button>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
